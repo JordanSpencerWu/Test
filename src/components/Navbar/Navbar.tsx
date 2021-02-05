@@ -34,12 +34,14 @@ const Logo = styled(LogoSvg)`
 `;
 
 function Navbar(): ReactElement {
+  const title = "Reel Cinema";
+
   return (
     <Container>
       <LogoContainer>
         <Logo />
       </LogoContainer>
-      <LogoText>Reel Cinema</LogoText>
+      <LogoText>{title}</LogoText>
     </Container>
   );
 }
