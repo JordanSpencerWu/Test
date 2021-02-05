@@ -1,22 +1,48 @@
-import { useReducer } from "react";
+import React, { useReducer, createContext, useContext } from "react";
 
-const initialState = {
-  popularMovies: null,
-};
+import {
+  reducer as appStateReducer,
+  INITIAL_APP_STATE,
+} from "./useAppState/reducer";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "setPopularMovies":
-      return { ...state, popularMovies: [1] };
-    default:
-      return state;
-  }
+const AppStateContext = createContext();
+const AppStateDispatchContext = createContext();
+
+function AppStateProvider(props) {
+  const { children } = props;
+  const [state, dispatch] = useReducer(appStateReducer, INITIAL_APP_STATE);
+
+  return (
+    <AppStateContext.Provider value={state}>
+      <AppStateDispatchContext.Provider value={dispatch}>
+        {children}
+      </AppStateDispatchContext.Provider>
+    </AppStateContext.Provider>
+  );
 }
 
 function useAppState() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const context = useContext(AppStateContext);
 
-  return [state, dispatch];
+  if (context === undefined) {
+    throw new Error(
+      "useAppState must be used within a AppStateContext.Provider"
+    );
+  }
+
+  return context;
 }
 
-export default useAppState;
+function useAppStateDispatch() {
+  const context = useContext(AppStateDispatchContext);
+
+  if (context === undefined) {
+    throw new Error(
+      "useAppStateDispatch must be used within a AppStateDispatchContext.Provider"
+    );
+  }
+
+  return context;
+}
+
+export { AppStateProvider, useAppState, useAppStateDispatch };

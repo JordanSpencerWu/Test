@@ -1,25 +1,13 @@
-import React, { ReactElement, useCallback, useEffect } from "react";
+import React, { ReactElement } from "react";
+import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "normalize.css";
 
 import routes from "./routes";
 import Navbar from "components/Navbar";
-import useAppState from "hooks/useAppState";
-import MovieService from "services/MovieService";
+import { AppStateProvider } from "hooks/useAppState";
 
 function App(): ReactElement {
-  const [state, dispatch] = useAppState();
-
-  const fetchMovies = useCallback(async () => {
-    const popularMovies = await MovieService.getPopular();
-
-    return popularMovies;
-  }, []);
-
-  useEffect(() => {
-    fetchMovies();
-  });
-
   const Routes = routes.map((route, index) => (
     <Route
       key={index}
@@ -30,10 +18,12 @@ function App(): ReactElement {
   ));
 
   return (
-    <Router>
-      <Navbar />
-      <Switch>{Routes}</Switch>
-    </Router>
+    <AppStateProvider>
+      <Router>
+        <Navbar />
+        <Switch>{Routes}</Switch>
+      </Router>
+    </AppStateProvider>
   );
 }
 
