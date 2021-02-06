@@ -1,5 +1,12 @@
 import types from "./actions";
 
+export function setByGenres(byGenres) {
+  return {
+    type: types.SET_BY_GENRES,
+    payload: { byGenres },
+  };
+}
+
 export function setMovieGenres(movieGenres) {
   return {
     type: types.SET_MOVIE_GENRES,

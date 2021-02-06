@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import MovieImage from "components/MovieImage";
@@ -12,11 +12,21 @@ const MovieContainer = styled.div`
   width: ${({ width }) => width}px;
   min-width: 150px;
   max-width: 250px;
-  cursor: pointer;
+  padding: 18px;
+  margin-bottom: 32px;
+  justify-content: space-between;
 
   &:not(:last-child) {
     margin-right: ${({ marginLength }) => marginLength}px;
   }
+
+  ${({ hover }) =>
+    hover &&
+    `
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14),
+                0 3px 14px 2px rgba(0,0,0,0.12),
+                0 5px 5px -3px rgba(0,0,0,0.20);
+    `}
 `;
 
 const TitleAndRatingContainer = styled.div`
@@ -55,6 +65,17 @@ const Star = styled(StarSvg)`
   margin-right: 4px;
 `;
 
+const DetailButton = styled.button`
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 10px;
+  color: white;
+  background-color: blue;
+  border-radius: 8px;
+
+  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+`;
+
 interface Movie {
   id: number;
   title: string;
@@ -72,8 +93,9 @@ interface PopularMovieProps {
 }
 
 function PopularMovie(props: PopularMovieProps): ReactElement {
+  const [hover, setHover] = useState(false);
   const { movieGenres, marginLength, movie, imageHeight, imageWidth } = props;
-  const { id, title, vote_average, poster_path, genre_ids } = movie;
+  const { title, vote_average, poster_path, genre_ids } = movie;
   const rating = vote_average.toFixed(1);
   const genreText = genre_ids
     .map((id) => {
@@ -86,23 +108,32 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
     .join(", ");
 
   return (
-    <MovieContainer width={imageWidth} marginLength={marginLength} key={id}>
-      <MovieImage
-        alt={title}
-        width={imageWidth}
-        height={imageHeight}
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-      />
-      <TitleAndRatingContainer>
-        <TitleAndGenreContainer>
-          <MoveTitleText>{title}</MoveTitleText>
-          <GenreSubText>{genreText}</GenreSubText>
-        </TitleAndGenreContainer>
-        <RatingText>
-          <Star />
-          {rating}
-        </RatingText>
-      </TitleAndRatingContainer>
+    <MovieContainer
+      hover={hover}
+      width={imageWidth}
+      marginLength={marginLength}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div>
+        <MovieImage
+          alt={title}
+          width={imageWidth}
+          height={imageHeight}
+          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        />
+        <TitleAndRatingContainer>
+          <TitleAndGenreContainer>
+            <MoveTitleText>{title}</MoveTitleText>
+            <GenreSubText>{genreText}</GenreSubText>
+          </TitleAndGenreContainer>
+          <RatingText>
+            <Star />
+            {rating}
+          </RatingText>
+        </TitleAndRatingContainer>
+      </div>
+      <DetailButton show={hover}>View Details</DetailButton>
     </MovieContainer>
   );
 }

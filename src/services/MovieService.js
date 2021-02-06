@@ -16,14 +16,18 @@ const MovieService = {
     const response = await fetch(url);
     const { genres } = await response.json();
 
-    const genresMapper = genres.reduce((acc, genre) => {
+    const byGenres = genres.slice(0, 4);
+    const movieGenres = genres.reduce((acc, genre) => {
       const { id, name } = genre;
       acc[id] = name;
 
       return acc;
     }, {});
 
-    return genresMapper;
+    return {
+      byGenres,
+      movieGenres,
+    };
   },
   getPopular: async () => {
     const queryOptions = {
