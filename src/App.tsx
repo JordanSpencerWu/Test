@@ -7,6 +7,11 @@ import routes from "./routes";
 import Navbar from "components/Navbar";
 import { AppStateProvider } from "hooks/useAppState";
 
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 function App(): ReactElement {
   const Routes = routes.map((route, index) => (
     <Route
@@ -21,7 +26,9 @@ function App(): ReactElement {
     <AppStateProvider>
       <Router>
         <Navbar />
-        <Switch>{Routes}</Switch>
+        <Container>
+          <Switch>{Routes}</Switch>
+        </Container>
       </Router>
     </AppStateProvider>
   );

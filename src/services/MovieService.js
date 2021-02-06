@@ -4,6 +4,27 @@ import queryString from "query-string";
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const MovieService = {
+  getMovieGenres: async () => {
+    const queryOptions = {
+      api_key: TMBD_API_TOKEN_V3,
+      language: "en",
+    };
+    const url = `${BASE_URL}/genre/movie/list?${queryString.stringify(
+      queryOptions
+    )}`;
+
+    const response = await fetch(url);
+    const { genres } = await response.json();
+
+    const genresMapper = genres.reduce((acc, genre) => {
+      const { id, name } = genre;
+      acc[id] = name;
+
+      return acc;
+    }, {});
+
+    return genresMapper;
+  },
   getPopular: async () => {
     const queryOptions = {
       api_key: TMBD_API_TOKEN_V3,
@@ -15,9 +36,9 @@ const MovieService = {
     )}`;
 
     const response = await fetch(url);
-    const { results } = await response.json();
+    const { results: movies } = await response.json();
 
-    return results;
+    return movies;
   },
 };
 

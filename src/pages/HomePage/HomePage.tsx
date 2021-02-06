@@ -5,25 +5,23 @@ import { useAppStateDispatch, useAppState } from "hooks/useAppState";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 
 import MovieImage from "components/MovieImage";
-import { setTop5PopularMovies } from "hooks/useAppState/actionCreators";
+import PopularMovie from "components/PopularMovie";
+import {
+  setTop5PopularMovies,
+  setMovieGenres,
+} from "hooks/useAppState/actionCreators";
 import MovieService from "services/MovieService";
 
-const CONTAINER_MARGIN_LENGTH = 32;
-const MOVIE_CONTAINER_MARGIN_LENGTH = 12;
+const MOVIE_CONTAINER_MARGIN_LENGTH = 24;
+const CONTAINER_PADDING = 80;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 ${CONTAINER_MARGIN_LENGTH}px;
 `;
 
 const MoviesContainer = styled.div`
   display: flex;
-`;
-
-const MovieContainer = styled.div`
-  display: flex;
-  margin: 0 ${MOVIE_CONTAINER_MARGIN_LENGTH}px;
 `;
 
 const Top5PopularMoviesHeader = styled.h2``;
@@ -36,7 +34,6 @@ function HomePage(): ReactElement {
   const state = useAppState();
   const dispatch = useAppStateDispatch();
   const { width } = useWindowDimensions();
-  console.log(width);
 
   const fetchMovies = useCallback(async () => {
     const popularMovies = await MovieService.getPopular();
@@ -45,26 +42,35 @@ function HomePage(): ReactElement {
     dispatch(setTop5PopularMovies(top5PopularMovies));
   }, [dispatch]);
 
+  const fetchMovieGenres = useCallback(async () => {
+    const movieGenres = await MovieService.getMovieGenres();
+
+    dispatch(setMovieGenres(movieGenres));
+  }, [dispatch]);
+
   useEffect(() => {
     fetchMovies();
-  }, [fetchMovies]);
+    fetchMovieGenres();
+  }, [fetchMovies, fetchMovieGenres]);
 
-  const { top5PopularMovies } = state;
+  const { top5PopularMovies, movieGenres } = state;
 
-  const showMovies = (movies) =>
-    movies.map((movie) => {
-      const { id, title, vote_average, poster_path } = movie;
-      return (
-        <MovieContainer>
-          <MovieImage
-            alt={title}
-            width={120}
-            height={180}
-            src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          />
-        </MovieContainer>
-      );
-    });
+  const showMovies = (movies) => {
+    const imageWidth =
+      (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + CONTAINER_PADDING)) /
+      top5PopularMovies.length;
+    const imageHeight = imageWidth * 1.4;
+
+    return movies.map((movie) => (
+      <PopularMovie
+        movie={movie}
+        imageHeight={imageHeight}
+        imageWidth={imageWidth}
+        movieGenres={movieGenres}
+        marginLength={MOVIE_CONTAINER_MARGIN_LENGTH}
+      />
+    ));
+  };
 
   return (
     <Container>
