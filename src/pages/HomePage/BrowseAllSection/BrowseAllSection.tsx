@@ -8,7 +8,7 @@ import { SORT_OPTIONS, sortMovies } from "utils/sortingMovies";
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
 const MOVIE_CONTAINER_MARGIN_LENGTH = 16;
-const CONTAINER_PADDING = 150;
+const TOTAL_CONTAINER_PADDING = 150;
 
 const Container = styled.div`
   width: 100%;
@@ -114,7 +114,7 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
 
   const chunkMovies = chunkArray(sortedMovies, NUMBER_OF_MOVIES_IN_A_ROW);
   const imageWidth =
-    (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + CONTAINER_PADDING)) /
+    (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + TOTAL_CONTAINER_PADDING)) /
     NUMBER_OF_MOVIES_IN_A_ROW;
   const imageHeight = imageWidth * 1.4;
 

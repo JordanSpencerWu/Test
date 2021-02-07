@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
+import path from "utils/path";
 import { ReactComponent as LogoSvg } from "assets/logo.svg";
 
 const NAVBAR_HEIGHT = 64;
@@ -32,13 +33,15 @@ const LogoContainer = styled.div`
   width: ${NAVBAR_HEIGHT * 0.85}px;
 `;
 
-const LogoLink = styled.a`
+const LogoLink = styled(Link)`
   cursor: pointer;
   font-size: 24px;
   font-weight: 600;
   margin-bottom: 0;
   margin-left: 32px;
   margin-top: 0;
+  text-decoration: none;
+  color: black;
 `;
 
 const Logo = styled(LogoSvg)`
@@ -47,12 +50,7 @@ const Logo = styled(LogoSvg)`
 `;
 
 function Navbar(): ReactElement {
-  const history = useHistory();
   const title = "Reel Cinema";
-
-  const gotoHomePage = () => {
-    history.push("/");
-  };
 
   return (
     <>
@@ -60,7 +58,7 @@ function Navbar(): ReactElement {
         <LogoContainer>
           <Logo />
         </LogoContainer>
-        <LogoLink onClick={gotoHomePage}>{title}</LogoLink>
+        <LogoLink to={path.toHome()}>{title}</LogoLink>
       </Container>
       <NonFixedContainer />
     </>

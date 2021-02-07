@@ -7,7 +7,7 @@ import { useWindowDimensions } from "hooks/useWindowDimensions";
 const GRAY_COLOR = "#bbbaba";
 const MOVIE_CONTAINER_MARGIN_LENGTH = 8;
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
-const CONTAINER_PADDING = 300;
+const TOTAL_CONTAINER_PADDING = 300;
 
 const Container = styled.div`
   display: flex;
@@ -50,7 +50,7 @@ function Top5Section(props: Top5SectionProps): ReactElement {
   const { width } = useWindowDimensions();
 
   const imageWidth =
-    (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + CONTAINER_PADDING)) /
+    (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + TOTAL_CONTAINER_PADDING)) /
     NUMBER_OF_MOVIES_IN_A_ROW;
   const imageHeight = imageWidth * 1.4;
 

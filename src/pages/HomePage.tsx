@@ -24,6 +24,8 @@ function HomePage(): ReactElement {
   const state = useAppState();
   const dispatch = useAppStateDispatch();
 
+  const { byGenres, popularMovies, top5PopularMovies, movieGenres } = state;
+
   const fetchMovies = useCallback(async () => {
     const popularMovies = await MovieService.getPopular();
     const top5PopularMovies = popularMovies.slice(0, 5);
@@ -40,11 +42,14 @@ function HomePage(): ReactElement {
   }, [dispatch]);
 
   useEffect(() => {
-    fetchMovies();
-    fetchMovieGenres();
-  }, [fetchMovies, fetchMovieGenres]);
+    if (popularMovies === null) {
+      fetchMovies();
+    }
 
-  const { byGenres, popularMovies, top5PopularMovies, movieGenres } = state;
+    if (movieGenres === null) {
+      fetchMovieGenres();
+    }
+  }, [fetchMovies, fetchMovieGenres, popularMovies, movieGenres]);
 
   return (
     <Container>

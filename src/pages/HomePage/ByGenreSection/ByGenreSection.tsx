@@ -7,7 +7,7 @@ import GenreLink from "./GenreLink";
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_GENRES_IN_A_ROW = 4;
 const GENRE_CONTAINER_MARGIN_LENGTH = 10;
-const CONTAINER_PADDING = 300;
+const TOTAL_CONTAINER_PADDING = 300;
 
 const Container = styled.div`
   width: 100%;
@@ -52,7 +52,7 @@ function ByGenreSection(props: ByGenreSectionProps): ReactElement {
   const { width } = useWindowDimensions();
 
   const genreWidth =
-    (width - (GENRE_CONTAINER_MARGIN_LENGTH * 3 + CONTAINER_PADDING)) /
+    (width - (GENRE_CONTAINER_MARGIN_LENGTH * 3 + TOTAL_CONTAINER_PADDING)) /
     NUMBER_OF_GENRES_IN_A_ROW;
   const genreHeight = genreWidth * 0.4;
 

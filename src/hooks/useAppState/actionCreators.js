@@ -7,6 +7,13 @@ export function setByGenres(genres) {
   };
 }
 
+export function setMovieDetail(movieDetail) {
+  return {
+    type: types.SET_MOVIE_DETAIL,
+    payload: { movieDetail },
+  };
+}
+
 export function setMovieGenres(movieGenres) {
   return {
     type: types.SET_MOVIE_GENRES,

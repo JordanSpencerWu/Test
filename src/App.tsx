@@ -16,7 +16,6 @@ const Container = styled.div`
 
 const PageContainer = styled.div`
   display: flex;
-  justify-content: center;
   width: 100%;
   height: calc(100% - ${NAVBAR_HEIGHT}px);
 `;

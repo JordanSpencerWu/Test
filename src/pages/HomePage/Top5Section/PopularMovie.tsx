@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import path from "utils/path";
 import MovieImage from "components/MovieImage";
 import { ReactComponent as StarSvg } from "assets/star.svg";
 
@@ -69,8 +71,12 @@ const DetailButton = styled.button`
   color: white;
   background-color: #2245e1;
   border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  border: 0;
 
-  visibility: ${({ show }) => (show ? "visible" : "hidden")};
+  visibility: ${({ hover }) => (hover ? "visible" : "hidden")};
 `;
 
 interface Movie {
@@ -93,7 +99,7 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
   const [hover, setHover] = useState(false);
 
   const { movieGenres, marginLength, movie, imageHeight, imageWidth } = props;
-  const { title, vote_average, poster_path, genre_ids } = movie;
+  const { id, title, vote_average, poster_path, genre_ids } = movie;
   const rating = vote_average.toFixed(1);
   const genreText = genre_ids
     .map((id) => {
@@ -114,6 +120,7 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
     >
       <div>
         <MovieImage
+          id={id}
           alt={title}
           height={imageHeight}
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
@@ -129,7 +136,9 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
           </RatingText>
         </TitleAndRatingContainer>
       </div>
-      <DetailButton show={hover}>View Details</DetailButton>
+      <Link to={path.toDetail(id)}>
+        <DetailButton hover={hover}>View Details</DetailButton>
+      </Link>
     </MovieContainer>
   );
 }

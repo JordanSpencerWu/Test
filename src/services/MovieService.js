@@ -4,6 +4,20 @@ import queryString from "query-string";
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const MovieService = {
+  getMovieDetail: async (movieId) => {
+    const queryOptions = {
+      api_key: TMBD_API_TOKEN_V3,
+      language: "en",
+    };
+    const url = `${BASE_URL}/movie/${movieId}?${queryString.stringify(
+      queryOptions
+    )}`;
+
+    const response = await fetch(url);
+    const detail = await response.json();
+
+    return detail;
+  },
   getMovieGenres: async () => {
     const queryOptions = {
       api_key: TMBD_API_TOKEN_V3,
