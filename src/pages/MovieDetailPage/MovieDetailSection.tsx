@@ -1,0 +1,110 @@
+import React from "react";
+import styled from "styled-components";
+
+import { ReactComponent as StarSvg } from "assets/star.svg";
+
+const STAR_SIZE = 24;
+const GRAY_COLOR = "#bbbaba";
+const DARK_GRAY_COLOR = "#63727d";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const RatingText = styled.p`
+  margin: 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: blue;
+`;
+
+const RatingSubText = styled.span`
+  color: ${GRAY_COLOR};
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 4px;
+`;
+
+const RatingContainer = styled.div`
+  display: flex;
+  align-items: center;s
+`;
+
+const Star = styled(StarSvg)`
+  height: ${STAR_SIZE}px;
+  width: ${STAR_SIZE}px;
+  margin-right: 4px;
+`;
+
+const MovieTitleText = styled.h1`
+  font-size: 42px;
+  font-weight: 600;
+  margin: 12px 0;
+`;
+
+const MovieYearSubText = styled.span`
+  color: ${GRAY_COLOR};
+  font-size: 48px;
+  font-weight: 200;
+`;
+
+const MovieGenreText = styled.p`
+  margin: 0;
+  font-size: 24px;
+  color: ${DARK_GRAY_COLOR};
+`;
+
+const MovieOverviewText = styled.p`
+  font-size: 20;
+  font-weight: normal;
+  line-height: 18px;
+  color: ${DARK_GRAY_COLOR};
+`;
+
+interface Genre {
+  id: number;
+  name: string;
+}
+
+interface MovieDetail {
+  title: string;
+  vote_average: number;
+  release_date: string;
+  genres: Array<Genre>;
+  overview: string;
+}
+
+interface MovieDetailSectionProps {
+  movieDetail: MovieDetail;
+}
+
+function MovieDetailSection(props: MovieDetailSectionProps): ReactElement {
+  const { movieDetail } = props;
+
+  const { title, vote_average, release_date, genres, overview } = movieDetail;
+
+  const year = release_date.split("-")[0];
+  const rating = vote_average.toFixed(1);
+  const genreText = genres.map((genre) => genre.name).join(", ");
+
+  return (
+    <Container>
+      <RatingContainer>
+        <Star />
+        <RatingText>
+          {rating}
+          <RatingSubText>/10</RatingSubText>
+        </RatingText>
+      </RatingContainer>
+      <MovieTitleText>
+        {title} <MovieYearSubText>{`(${year})`}</MovieYearSubText>
+      </MovieTitleText>
+      <MovieGenreText>{genreText}</MovieGenreText>
+      <MovieOverviewText>{overview}</MovieOverviewText>
+    </Container>
+  );
+}
+
+export default MovieDetailSection;
