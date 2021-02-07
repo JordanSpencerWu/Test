@@ -70,8 +70,8 @@ const DetailButton = styled.button`
   cursor: pointer;
   padding: 10px;
   color: white;
-  background-color: blue;
-  border-radius: 8px;
+  background-color: #2245e1;
+  border-radius: 4px;
 
   visibility: ${({ show }) => (show ? "visible" : "hidden")};
 `;
@@ -94,6 +94,7 @@ interface PopularMovieProps {
 
 function PopularMovie(props: PopularMovieProps): ReactElement {
   const [hover, setHover] = useState(false);
+
   const { movieGenres, marginLength, movie, imageHeight, imageWidth } = props;
   const { title, vote_average, poster_path, genre_ids } = movie;
   const rating = vote_average.toFixed(1);
@@ -118,7 +119,6 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
       <div>
         <MovieImage
           alt={title}
-          width={imageWidth}
           height={imageHeight}
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
         />
