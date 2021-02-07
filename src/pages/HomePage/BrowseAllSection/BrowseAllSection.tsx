@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import MovieImage from "components/MovieImage";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { SORT_OPTIONS, sortMovies } from "utils/sortingMovies";
 
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
@@ -24,7 +25,13 @@ const FlexContainer = styled.div`
   flex-direction: column;
 `;
 
-const SectionSubText = styled.span`
+const SectionTitleAndSortContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 16px 0;
+`;
+
+const SectionSubText = styled.p`
   margin: 0;
   font-weight: 400;
   font-size: 24px;
@@ -32,7 +39,7 @@ const SectionSubText = styled.span`
 `;
 
 const SectionHeader = styled.h2`
-  margin: 16px 0;
+  margin: 0;
   font-size: 32px;
   font-weight: 600;
   line-height: 1;
@@ -53,12 +60,31 @@ const MovieImageContainer = styled.div`
   }
 `;
 
+const SortForm = styled.form`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const SortLabel = styled.label`
+  font-size: 18px;
+  color: ${GRAY_COLOR};
+  margin-right: 12px;
+  line-height: 1.8;
+`;
+
+const SortSelect = styled.select`
+  width: 150px;
+  height: 32px;
+  padding-left: 8px;
+`;
+
 interface Movie {
   id: number;
   title: string;
-  vote_average: number;
   poster_path: string;
   genre_ids: Array<number>;
+  popularity: number;
+  vote_average: number;
 }
 
 interface BrowseAllSectionProps {
@@ -75,12 +101,18 @@ const chunkArray = (array, chunkSize) => {
   return chunkArray;
 };
 
+const renderOptions = () =>
+  SORT_OPTIONS.map((option) => <option>{option}</option>);
+
 function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   const { movies } = props;
 
+  const [sortBy, setSortBy] = useState(SORT_OPTIONS[0]);
   const { width } = useWindowDimensions();
 
-  const chunkMovies = chunkArray(movies, NUMBER_OF_MOVIES_IN_A_ROW);
+  const sortedMovies = sortMovies(movies, sortBy);
+
+  const chunkMovies = chunkArray(sortedMovies, NUMBER_OF_MOVIES_IN_A_ROW);
   const imageWidth =
     (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + CONTAINER_PADDING)) /
     NUMBER_OF_MOVIES_IN_A_ROW;
@@ -89,6 +121,7 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   const showMovieImages = (movies) =>
     movies.map((movie) => (
       <MovieImageContainer
+        key={movie.id}
         marginLength={MOVIE_CONTAINER_MARGIN_LENGTH}
         width={imageWidth}
       >
@@ -108,14 +141,18 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   return (
     <Container>
       <CenterContainer>
-        <div>
-          <SectionHeader>
+        <SectionTitleAndSortContainer>
+          <div>
             <SectionSubText>Movies</SectionSubText>
-            <br />
-            Browse All
-          </SectionHeader>
-          <input />
-        </div>
+            <SectionHeader>Browse All</SectionHeader>
+          </div>
+          <SortForm>
+            <SortLabel>Sort by</SortLabel>
+            <SortSelect onChange={(e) => setSortBy(e.target.value)}>
+              {renderOptions()}
+            </SortSelect>
+          </SortForm>
+        </SectionTitleAndSortContainer>
         <FlexContainer>{showMovies(chunkMovies)}</FlexContainer>
       </CenterContainer>
     </Container>
