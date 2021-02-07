@@ -75,7 +75,7 @@ const Row = styled.div`
 const ImageContainer = styled.div`
   width: ${({ width }) => width}px;
   min-width: 150px;
-  max-width: 275px;
+  max-width: 350px;
   margin-bottom: 8px;
 
   &:not(:last-child) {
@@ -84,14 +84,16 @@ const ImageContainer = styled.div`
 `;
 
 function DiscoverPage(): ReactElement {
-  const { moviesByGenre, movieGenres } = useAppState();
+  const { moviesByGenreLookUp, movieGenres } = useAppState();
   const [sortBy, setSortBy] = useState(SORT_OPTIONS[0]);
   const dispatch = useAppStateDispatch();
   const location = useLocation();
-  const queryString = new URLSearchParams(location.search);
   const history = useHistory();
   const { width } = useWindowDimensions();
 
+  const queryString = new URLSearchParams(location.search);
+  const genreId = queryString.get("genreId");
+  const moviesByGenre = moviesByGenreLookUp[genreId];
   const fetchMovieGenres = useCallback(async () => {
     const { movieGenres, byGenres } = await MovieService.getMovieGenres();
 
@@ -100,24 +102,23 @@ function DiscoverPage(): ReactElement {
   }, [dispatch]);
 
   const fetchMoviesByGenres = useCallback(async () => {
-    const movies = await MovieService.getMoviesByGenre();
+    const movies = await MovieService.getMoviesByGenre(genreId);
 
-    dispatch(setMoviesByGenre(movies));
-  }, [dispatch]);
+    dispatch(setMoviesByGenre(genreId, movies));
+  }, [dispatch, genreId]);
 
   useEffect(() => {
     if (movieGenres === null) {
       fetchMovieGenres();
     }
 
-    if (moviesByGenre === null) {
+    if (moviesByGenre === undefined) {
       fetchMoviesByGenres();
     }
   }, [fetchMovieGenres, fetchMoviesByGenres, movieGenres, moviesByGenre]);
 
-  if (movieGenres === null || moviesByGenre === null) return null;
+  if (movieGenres === null || moviesByGenre === undefined) return null;
 
-  const genreId = queryString.get("genreId");
   const genreText = movieGenres[genreId];
   const sortedMovies = sortMovies(moviesByGenre, sortBy);
   const chunkMovies = chunkArray(sortedMovies, NUMBER_OF_MOVIES_IN_A_ROW);

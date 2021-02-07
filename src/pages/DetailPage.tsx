@@ -82,22 +82,14 @@ function DetailPage(): ReactElement {
   }, [dispatch, movieId]);
 
   useEffect(() => {
-    if (movieDetailLookUp === {} || movieDetail === undefined) {
+    if (movieDetail === undefined) {
       fetchMovieDetail();
     }
 
-    if (movieCreditLookUp === {} || movieCredit === undefined) {
+    if (movieCredit === undefined) {
       fetchMovieCredit();
     }
-  }, [
-    fetchMovieDetail,
-    fetchMovieCredit,
-    movieDetailLookUp,
-    movieCreditLookUp,
-    movieDetail,
-    movieCredit,
-    movieId,
-  ]);
+  }, [fetchMovieDetail, fetchMovieCredit, movieDetail, movieCredit, movieId]);
 
   if (movieDetail === undefined || movieCredit === undefined) {
     return null;

@@ -7,10 +7,10 @@ export const INITIAL_APP_STATE = {
   movieCreditLookUp: {},
   // Look up table for movie detail by movie id
   movieDetailLookUp: {},
+  // Look up table for list of movies by genre by genre id
+  moviesByGenreLookUp: {},
   // List of all movie genre
   movieGenres: null,
-  // List of movies by genre
-  moviesByGenre: null,
   // List of popular movies
   popularMovies: null,
   // List of 5 popular movies
@@ -27,6 +27,12 @@ function updateMovieCreditLookUp(movieCreditLookUp, movieId, cast, crew) {
   movieCreditLookUp[movieId] = { cast, crew };
 
   return movieCreditLookUp;
+}
+
+function updateMoviesByGenreLookUp(moviesByGenreLookUp, genreId, movies) {
+  moviesByGenreLookUp[genreId] = movies;
+
+  return moviesByGenreLookUp;
 }
 
 export function reducer(state, action) {
@@ -56,7 +62,14 @@ export function reducer(state, action) {
     case types.SET_TOP_5_POPULAR_MOVIES:
       return { ...state, top5PopularMovies: payload.movies };
     case types.SET_MOVIES_BY_GENRE:
-      return { ...state, moviesByGenre: payload.movies };
+      return {
+        ...state,
+        moviesByGenreLookUp: updateMoviesByGenreLookUp(
+          state.moviesByGenreLookUp,
+          payload.genreId,
+          payload.movies
+        ),
+      };
     case types.SET_POPULAR_MOVIES:
       return { ...state, popularMovies: payload.movies };
     case types.SET_MOVIE_GENRES:

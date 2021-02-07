@@ -10,7 +10,7 @@ const MovieService = {
       language: "en",
       sort_by: "popularity.desc",
       page: 1,
-      with_genres: [genreId],
+      with_genres: parseInt(genreId),
     };
     const url = `${BASE_URL}/discover/movie?${queryString.stringify(
       queryOptions

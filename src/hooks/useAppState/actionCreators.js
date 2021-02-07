@@ -28,10 +28,10 @@ export function setMovieGenres(movieGenres) {
   };
 }
 
-export function setMoviesByGenre(movies) {
+export function setMoviesByGenre(genreId, movies) {
   return {
     type: types.SET_MOVIES_BY_GENRE,
-    payload: { movies },
+    payload: { genreId, movies },
   };
 }
 
