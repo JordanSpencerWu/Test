@@ -2,16 +2,23 @@ import types from "./actions";
 
 export const INITIAL_APP_STATE = {
   byGenres: null,
+  movieCreditLookUp: {},
   movieDetailLookUp: {},
   movieGenres: null,
   popularMovies: null,
   top5PopularMovies: null,
 };
 
-function updateMovieDetailLookUp(movieDetailLookUp, newMovieDetail) {
-  movieDetailLookUp[newMovieDetail.id] = newMovieDetail;
+function updateMovieDetailLookUp(movieDetailLookUp, movieDetail) {
+  movieDetailLookUp[movieDetail.id] = movieDetail;
 
   return movieDetailLookUp;
+}
+
+function updateMovieCreditLookUp(movieCreditLookUp, movieId, casts, crew) {
+  movieCreditLookUp[movieId] = { casts, crew };
+
+  return movieCreditLookUp;
 }
 
 export function reducer(state, action) {
@@ -20,6 +27,16 @@ export function reducer(state, action) {
   switch (type) {
     case types.SET_BY_GENRES:
       return { ...state, byGenres: payload.genres };
+    case types.SET_MOVIE_CREDIT:
+      return {
+        ...state,
+        movieCreditLookUp: updateMovieCreditLookUp(
+          state.movieCreditLookUp,
+          payload.movieId,
+          payload.casts,
+          payload.crew
+        ),
+      };
     case types.SET_MOVIE_DETAIL:
       return {
         ...state,

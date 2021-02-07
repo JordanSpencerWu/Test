@@ -9,7 +9,8 @@ const Image = styled.img`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   height: ${({ height }) => height}px;
   width: 100%;
-  cursor: pointer;
+
+  ${({ pointer }) => pointer && `cursor: pointer;`}
 `;
 
 interface MovieImageProps {
@@ -22,11 +23,19 @@ interface MovieImageProps {
 function MovieImage(props: MovieImageProps): ReactElement {
   const { id, ...imageProps } = props;
 
+  if (id === null) {
+    return <Image {...imageProps} />;
+  }
+
   return (
     <Link to={path.toDetail(id)}>
-      <Image {...imageProps} />
+      <Image {...imageProps} pointer />
     </Link>
   );
 }
+
+MovieImage.defaultProps = {
+  id: null,
+};
 
 export default MovieImage;

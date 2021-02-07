@@ -8,6 +8,7 @@ const GRAY_COLOR = "#bbbaba";
 const DARK_GRAY_COLOR = "#63727d";
 
 const Container = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;
@@ -56,7 +57,14 @@ const MovieGenreText = styled.p`
   color: ${DARK_GRAY_COLOR};
 `;
 
+const MovieDirectorText = styled.p`
+  margin: 42px 0 10px 0;
+  font-size: 16;
+  font-weight: 600;
+`;
+
 const MovieOverviewText = styled.p`
+  margin: 0;
   font-size: 20;
   font-weight: normal;
   line-height: 18px;
@@ -76,18 +84,25 @@ interface MovieDetail {
   overview: string;
 }
 
+interface Crew {
+  job: string;
+  name: string;
+}
+
 interface MovieDetailSectionProps {
   movieDetail: MovieDetail;
+  crew: Array<Crew>;
 }
 
 function MovieDetailSection(props: MovieDetailSectionProps): ReactElement {
-  const { movieDetail } = props;
+  const { movieDetail, crew } = props;
 
   const { title, vote_average, release_date, genres, overview } = movieDetail;
 
   const year = release_date.split("-")[0];
   const rating = vote_average.toFixed(1);
   const genreText = genres.map((genre) => genre.name).join(", ");
+  const director = crew.find((c) => c.job === "Director");
 
   return (
     <Container>
@@ -102,6 +117,7 @@ function MovieDetailSection(props: MovieDetailSectionProps): ReactElement {
         {title} <MovieYearSubText>{`(${year})`}</MovieYearSubText>
       </MovieTitleText>
       <MovieGenreText>{genreText}</MovieGenreText>
+      <MovieDirectorText>Dicector: {director.name}</MovieDirectorText>
       <MovieOverviewText>{overview}</MovieOverviewText>
     </Container>
   );

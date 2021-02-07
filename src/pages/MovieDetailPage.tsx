@@ -7,7 +7,10 @@ import { useAppStateDispatch, useAppState } from "hooks/useAppState";
 
 import path from "utils/path";
 import { ReactComponent as BackArrowSvg } from "assets/back-arrow.svg";
-import { setMovieDetail } from "hooks/useAppState/actionCreators";
+import {
+  setMovieDetail,
+  setMovieCredit,
+} from "hooks/useAppState/actionCreators";
 import MovieService from "services/MovieService";
 import MovieImage from "components/MovieImage";
 import MovieDetailSection from "./MovieDetailPage/MovieDetailSection";
@@ -41,6 +44,7 @@ const BackSection = styled.div`
 
 const DetailSection = styled.div`
   display: flex;
+  width: 100%;
 `;
 
 const ImageContainer = styled.div`
@@ -59,9 +63,10 @@ function MovieDetailPage(props): ReactElement {
   const { movieId } = useParams();
   const { width } = useWindowDimensions();
 
-  const { movieDetailLookUp } = state;
+  const { movieDetailLookUp, movieCreditLookUp } = state;
 
   const movieDetail = movieDetailLookUp[movieId];
+  const { casts, crew } = movieCreditLookUp[movieId];
 
   const fetchMovieDetail = useCallback(async () => {
     const detail = await MovieService.getMovieDetail(movieId);
@@ -69,17 +74,29 @@ function MovieDetailPage(props): ReactElement {
     dispatch(setMovieDetail(detail));
   }, [dispatch, movieId]);
 
+  const fetchMovieCredit = useCallback(async () => {
+    const { id, cast, crew } = await MovieService.getMovieCredit(movieId);
+
+    dispatch(setMovieCredit(id, cast, crew));
+  }, [dispatch, movieId]);
+
   useEffect(() => {
-    if (movieDetailLookUp === {}) {
+    if (movieDetailLookUp === {} || movieDetailLookUp[movieId] === undefined) {
       fetchMovieDetail();
     }
 
-    if (movieDetailLookUp && movieDetailLookUp[movieId] === undefined) {
-      fetchMovieDetail();
+    if (movieCreditLookUp === {} || movieCreditLookUp[movieId] === undefined) {
+      fetchMovieCredit();
     }
-  }, [fetchMovieDetail, movieDetailLookUp, movieId]);
+  }, [
+    fetchMovieDetail,
+    fetchMovieCredit,
+    movieDetailLookUp,
+    movieCreditLookUp,
+    movieId,
+  ]);
 
-  if (movieDetail === undefined) {
+  if (movieDetail === undefined || casts === undefined || crew === undefined) {
     return <div>Fetching...</div>;
   }
 
@@ -108,7 +125,7 @@ function MovieDetailPage(props): ReactElement {
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
           />
         </ImageContainer>
-        <MovieDetailSection movieDetail={movieDetail} />
+        <MovieDetailSection movieDetail={movieDetail} crew={crew} />
       </DetailSection>
     </Container>
   );
