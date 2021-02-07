@@ -13,6 +13,7 @@ import { SORT_OPTIONS, sortMovies } from "utils/sortMovies";
 import chunkArray from "utils/chunkArray";
 import path from "utils/path";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { LIGHT_GRAY_COLOR } from "utils/colors";
 
 import { ReactComponent as BackArrowSvg } from "assets/back-arrow.svg";
 import SelectInput from "components/SelectInput";
@@ -20,7 +21,6 @@ import Image from "components/Image";
 
 const CONTAINER_PADDING = 32;
 const TOTAL_CONTAINER_PADDING = CONTAINER_PADDING * 2;
-const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
 const MARGIN_LENGTH = 16;
 
@@ -43,7 +43,7 @@ const MoviesContainer = styled.div`
 `;
 
 const BackArrow = styled(BackArrowSvg)`
-  color: %{GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
   cursor: pointer;
   margin-right: 16px;
 `;
@@ -53,7 +53,7 @@ const MoviesHeader = styled.h2`
 `;
 
 const GraySubText = styled.span`
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
 `;
 
 const SortForm = styled.form`
@@ -63,7 +63,7 @@ const SortForm = styled.form`
 
 const SortLabel = styled.label`
   font-size: 18px;
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
   margin-right: 12px;
   line-height: 1.8;
 `;

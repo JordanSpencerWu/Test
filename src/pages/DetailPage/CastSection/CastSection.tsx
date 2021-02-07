@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 import chunkArray from "utils/chunkArray";
+import { LIGHT_GRAY_COLOR } from "utils/colors";
 
 import Image from "components/Image";
 import { ReactComponent as AvatarSvg } from "assets/avatar.svg";
 
 const AVATAR_SIZE = 42;
 const NUMBER_OF_CAST_IN_A_ROW = 6;
-const GRAY_COLOR = "#bbbaba";
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +27,7 @@ const CastContainer = styled.div`
 
 const ImageContainer = styled.div`
   height: ${({ height }) => height}px;
-  border-radius: 4px;
+  border-radius: 6px;
 
   ${({ avatar }) =>
     avatar &&
@@ -62,7 +62,7 @@ const CastNameText = styled.p`
 const CastCharacterText = styled.p`
   margin: 4px 0 0 0;
   font-size 14px;
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
 `;
 
 interface Cast {

@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+import { LIGHT_GRAY_COLOR } from "utils/colors";
 
 import PopularMovie from "./PopularMovie";
 
-const GRAY_COLOR = "#bbbaba";
 const MOVIE_CONTAINER_MARGIN_LENGTH = 8;
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
 const TOTAL_CONTAINER_PADDING = 300;
@@ -21,7 +21,7 @@ const Top5PopularMoviesHeader = styled.h2`
 `;
 
 const GraySubText = styled.span`
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
 `;
 
 const CenterContainer = styled.div`

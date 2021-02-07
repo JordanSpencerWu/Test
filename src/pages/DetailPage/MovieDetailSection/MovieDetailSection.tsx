@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import { LIGHT_GRAY_COLOR, DARK_GRAY_COLOR } from "utils/colors";
+
 import { ReactComponent as StarSvg } from "assets/star.svg";
 
 const STAR_SIZE = 24;
-const GRAY_COLOR = "#bbbaba";
-const DARK_GRAY_COLOR = "#63727d";
 
 const Container = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ const RatingText = styled.p`
 `;
 
 const RatingSubText = styled.span`
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
   font-size: 18px;
   font-weight: 400;
   margin-left: 4px;
@@ -46,7 +46,7 @@ const MovieTitleText = styled.h1`
 `;
 
 const MovieYearSubText = styled.span`
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
   font-size: 48px;
   font-weight: 200;
 `;

@@ -9,6 +9,7 @@ import {
   setMovieDetail,
   setMovieCredit,
 } from "hooks/useAppState/actionCreators";
+import { LIGHT_GRAY_COLOR } from "utils/colors";
 
 import { ReactComponent as BackArrowSvg } from "assets/back-arrow.svg";
 import Image from "components/Image";
@@ -19,7 +20,6 @@ const CONTAINER_PADDING = 32;
 const TOTAL_CONTAINER_PADDING = CONTAINER_PADDING * 2;
 const MOVIE_IMAGE_MARGIN_LENGTH = 32;
 const CAST_IMAGE_MARGIN_LENGTH = 12;
-const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_CAST_IN_A_ROW = 6;
 
 const Container = styled.div`
@@ -34,7 +34,7 @@ const MoviesHeader = styled.h2`
 `;
 
 const GraySubText = styled.span`
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
 `;
 
 const BackSection = styled.div`
@@ -54,7 +54,7 @@ const ImageContainer = styled.div`
 `;
 
 const BackArrow = styled(BackArrowSvg)`
-  color: %{GRAY_COLOR};
+  color: %{LIGHT_GRAY_COLOR};
   cursor: pointer;
   margin-right: 16px;
 `;

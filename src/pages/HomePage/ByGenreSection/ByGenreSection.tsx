@@ -3,10 +3,10 @@ import styled from "styled-components";
 
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import path from "utils/path";
+import { LIGHT_GRAY_COLOR } from "utils/colors";
 
 import GenreLink from "./GenreLink";
 
-const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_GENRES_IN_A_ROW = 4;
 const GENRE_CONTAINER_MARGIN_LENGTH = 10;
 const TOTAL_CONTAINER_PADDING = 300;
@@ -29,7 +29,7 @@ const SectionSubText = styled.span`
   margin: 0;
   font-weight: 400;
   font-size: 24px;
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
 `;
 
 const SectionHeader = styled.h2`

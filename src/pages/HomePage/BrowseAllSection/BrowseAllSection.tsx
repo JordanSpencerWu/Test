@@ -5,11 +5,11 @@ import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { SORT_OPTIONS, sortMovies } from "utils/sortMovies";
 import chunkArray from "utils/chunkArray";
 import path from "utils/path";
+import { LIGHT_GRAY_COLOR } from "utils/colors";
 
 import Image from "components/Image";
 import SelectInput from "components/SelectInput";
 
-const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
 const MOVIE_CONTAINER_MARGIN_LENGTH = 16;
 const TOTAL_CONTAINER_PADDING = 150;
@@ -39,7 +39,7 @@ const SectionSubText = styled.p`
   margin: 0;
   font-weight: 400;
   font-size: 24px;
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
 `;
 
 const SectionHeader = styled.h2`
@@ -71,7 +71,7 @@ const SortForm = styled.form`
 
 const SortLabel = styled.label`
   font-size: 18px;
-  color: ${GRAY_COLOR};
+  color: ${LIGHT_GRAY_COLOR};
   margin-right: 12px;
   line-height: 1.8;
 `;
