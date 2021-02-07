@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import PopularMovie from "./PopularMovie";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
+
+import PopularMovie from "./PopularMovie";
 
 const GRAY_COLOR = "#bbbaba";
 const MOVIE_CONTAINER_MARGIN_LENGTH = 8;

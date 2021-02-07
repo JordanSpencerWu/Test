@@ -2,15 +2,15 @@ import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory, useParams } from "react-router-dom";
 
+import MovieService from "services/MovieService";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { useAppStateDispatch, useAppState } from "hooks/useAppState";
-
-import { ReactComponent as BackArrowSvg } from "assets/back-arrow.svg";
 import {
   setMovieDetail,
   setMovieCredit,
 } from "hooks/useAppState/actionCreators";
-import MovieService from "services/MovieService";
+
+import { ReactComponent as BackArrowSvg } from "assets/back-arrow.svg";
 import Image from "components/Image";
 import MovieDetailSection from "./DetailPage/MovieDetailSection";
 import CastSection from "./DetailPage/CastSection";
@@ -118,7 +118,7 @@ function DetailPage(): ReactElement {
     (width -
       (TOTAL_CONTAINER_PADDING +
         CAST_IMAGE_MARGIN_LENGTH * (NUMBER_OF_CAST_IN_A_ROW - 1) +
-        100)) /
+        105)) /
     NUMBER_OF_CAST_IN_A_ROW;
   const castImageHeight = castImageWidth * 1.04;
 

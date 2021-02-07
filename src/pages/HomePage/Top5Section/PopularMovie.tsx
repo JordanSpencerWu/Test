@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import path from "utils/path";
+
 import Image from "components/Image";
 import { ReactComponent as StarSvg } from "assets/star.svg";
 

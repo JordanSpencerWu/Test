@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import chunkArray from "utils/chunkArray";
+
 import Image from "components/Image";
 import { ReactComponent as AvatarSvg } from "assets/avatar.svg";
 

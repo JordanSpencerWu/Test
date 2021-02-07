@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import path from "utils/path";
+
 import { ReactComponent as LogoSvg } from "assets/logo.svg";
 
 const NAVBAR_HEIGHT = 64;

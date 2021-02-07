@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 import { useAppStateDispatch, useAppState } from "hooks/useAppState";
-
 import {
   setByGenres,
   setMovieGenres,
@@ -10,6 +9,7 @@ import {
   setTop5PopularMovies,
 } from "hooks/useAppState/actionCreators";
 import MovieService from "services/MovieService";
+
 import Top5Section from "./HomePage/Top5Section";
 import ByGenreSection from "./HomePage/ByGenreSection";
 import BrowseAllSection from "./HomePage/BrowseAllSection";

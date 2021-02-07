@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import Image from "components/Image";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { SORT_OPTIONS, sortMovies } from "utils/sortMovies";
 import chunkArray from "utils/chunkArray";
 import path from "utils/path";
+
+import Image from "components/Image";
 import SelectInput from "components/SelectInput";
 
 const GRAY_COLOR = "#bbbaba";
@@ -23,7 +24,7 @@ const CenterContainer = styled.div`
   margin: 0 auto;
 `;
 
-const FlexContainer = styled.div`
+const MoviesContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -95,8 +96,7 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   const { width } = useWindowDimensions();
 
   const sortedMovies = sortMovies(movies, sortBy);
-
-  const chunkMovies = chunkArray(sortedMovies, NUMBER_OF_MOVIES_IN_A_ROW);
+  const chunkedMovies = chunkArray(sortedMovies, NUMBER_OF_MOVIES_IN_A_ROW);
   const imageWidth =
     (width - (MOVIE_CONTAINER_MARGIN_LENGTH * 4 + TOTAL_CONTAINER_PADDING)) /
     NUMBER_OF_MOVIES_IN_A_ROW;
@@ -118,8 +118,8 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
       </ImageContainer>
     ));
 
-  const showMovies = (chunkMovies) =>
-    chunkMovies.map((movies, index) => (
+  const showMovies = (chunkedMovies) =>
+    chunkedMovies.map((movies, index) => (
       <Row key={index}>{showMovieImages(movies)}</Row>
     ));
 
@@ -139,7 +139,7 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
             />
           </SortForm>
         </TitleAndSortContainer>
-        <FlexContainer>{showMovies(chunkMovies)}</FlexContainer>
+        <MoviesContainer>{showMovies(chunkedMovies)}</MoviesContainer>
       </CenterContainer>
     </Container>
   );

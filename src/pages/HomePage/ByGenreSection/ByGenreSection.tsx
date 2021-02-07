@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import GenreLink from "./GenreLink";
 import path from "utils/path";
+
+import GenreLink from "./GenreLink";
 
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_GENRES_IN_A_ROW = 4;
