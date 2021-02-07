@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import path from "utils/path";
-import MovieImage from "components/MovieImage";
+import Image from "components/Image";
 import { ReactComponent as StarSvg } from "assets/star.svg";
 
 const STAR_SIZE = 12;
@@ -119,8 +119,8 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
       onMouseLeave={() => setHover(false)}
     >
       <div>
-        <MovieImage
-          id={id}
+        <Image
+          to={path.toDetail(id)}
           alt={title}
           height={imageHeight}
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}

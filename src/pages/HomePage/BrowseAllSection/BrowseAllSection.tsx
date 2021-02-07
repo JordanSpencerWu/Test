@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import MovieImage from "components/MovieImage";
+import Image from "components/Image";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { SORT_OPTIONS, sortMovies } from "utils/sortingMovies";
+import chunkArray from "utils/chunkArray";
+import path from "utils/path";
 
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
@@ -49,7 +51,7 @@ const Row = styled.div`
   display: flex;
 `;
 
-const MovieImageContainer = styled.div`
+const ImageContainer = styled.div`
   width: ${({ width }) => width}px;
   min-width: 150px;
   max-width: 275px;
@@ -91,17 +93,7 @@ interface BrowseAllSectionProps {
   movies: Array<Movie>;
 }
 
-const chunkArray = (array, chunkSize) => {
-  const chunkArray = [];
-
-  for (let i = 0; i < array.length; i += chunkSize) {
-    chunkArray.push(array.slice(i, i + chunkSize));
-  }
-
-  return chunkArray;
-};
-
-const renderOptions = () =>
+const showOptions = () =>
   SORT_OPTIONS.map((option, index) => <option key={index}>{option}</option>);
 
 function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
@@ -120,17 +112,18 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
 
   const showMovieImages = (movies) =>
     movies.map((movie) => (
-      <MovieImageContainer
+      <ImageContainer
         key={movie.id}
         marginLength={MOVIE_CONTAINER_MARGIN_LENGTH}
         width={imageWidth}
       >
-        <MovieImage
+        <Image
+          to={path.toDetail(movie.id)}
           alt={movie.title}
           height={imageHeight}
           src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
         />
-      </MovieImageContainer>
+      </ImageContainer>
     ));
 
   const showMovies = (chunkMovies) =>
@@ -149,7 +142,7 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
           <SortForm>
             <SortLabel>Sort by</SortLabel>
             <SortSelect onChange={(e) => setSortBy(e.target.value)}>
-              {renderOptions()}
+              {showOptions()}
             </SortSelect>
           </SortForm>
         </SectionTitleAndSortContainer>

@@ -15,8 +15,8 @@ function updateMovieDetailLookUp(movieDetailLookUp, movieDetail) {
   return movieDetailLookUp;
 }
 
-function updateMovieCreditLookUp(movieCreditLookUp, movieId, casts, crew) {
-  movieCreditLookUp[movieId] = { casts, crew };
+function updateMovieCreditLookUp(movieCreditLookUp, movieId, cast, crew) {
+  movieCreditLookUp[movieId] = { cast, crew };
 
   return movieCreditLookUp;
 }
@@ -33,7 +33,7 @@ export function reducer(state, action) {
         movieCreditLookUp: updateMovieCreditLookUp(
           state.movieCreditLookUp,
           payload.movieId,
-          payload.casts,
+          payload.cast,
           payload.crew
         ),
       };

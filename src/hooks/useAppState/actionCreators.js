@@ -7,10 +7,10 @@ export function setByGenres(genres) {
   };
 }
 
-export function setMovieCredit(movieId, casts, crew) {
+export function setMovieCredit(movieId, cast, crew) {
   return {
     type: types.SET_MOVIE_CREDIT,
-    payload: { movieId, casts, crew },
+    payload: { movieId, cast, crew },
   };
 }
 

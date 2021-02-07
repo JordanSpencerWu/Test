@@ -12,13 +12,16 @@ import {
   setMovieCredit,
 } from "hooks/useAppState/actionCreators";
 import MovieService from "services/MovieService";
-import MovieImage from "components/MovieImage";
+import Image from "components/Image";
 import MovieDetailSection from "./MovieDetailPage/MovieDetailSection";
+import CastSection from "./MovieDetailPage/CastSection";
 
 const CONTAINER_PADDING = 32;
 const TOTAL_CONTAINER_PADDING = CONTAINER_PADDING * 2;
-const MARGIN_LENGTH = 32;
+const MOVIE_IMAGE_MARGIN_LENGTH = 32;
+const CAST_IMAGE_MARGIN_LENGTH = 12;
 const GRAY_COLOR = "#bbbaba";
+const NUMBER_OF_CAST_IN_A_ROW = 6;
 
 const Container = styled.div`
   display: flex;
@@ -102,12 +105,23 @@ function MovieDetailPage(props): ReactElement {
   }
 
   const { title, poster_path } = movieDetail;
-  const { crew } = movieCredit;
+  const { cast, crew } = movieCredit;
 
-  const sideDetailWidth = (width - TOTAL_CONTAINER_PADDING) * 0.72;
-  const imageWidth =
-    width - TOTAL_CONTAINER_PADDING - MARGIN_LENGTH - sideDetailWidth;
-  const imageHeight = imageWidth * 1.4;
+  const sideDetailWidth = (width - TOTAL_CONTAINER_PADDING) * 0.6;
+  const movieImageWidth =
+    width -
+    TOTAL_CONTAINER_PADDING -
+    MOVIE_IMAGE_MARGIN_LENGTH -
+    sideDetailWidth;
+  const movieImageHeight = movieImageWidth * 1.025;
+
+  const castImageWidth =
+    (width -
+      (TOTAL_CONTAINER_PADDING +
+        CAST_IMAGE_MARGIN_LENGTH * (NUMBER_OF_CAST_IN_A_ROW - 1) +
+        100)) /
+    NUMBER_OF_CAST_IN_A_ROW;
+  const castImageHeight = castImageWidth * 1.04;
 
   return (
     <Container>
@@ -120,15 +134,24 @@ function MovieDetailPage(props): ReactElement {
         </MoviesHeader>
       </BackSection>
       <DetailSection>
-        <ImageContainer width={imageWidth} marginLength={MARGIN_LENGTH}>
-          <MovieImage
+        <ImageContainer
+          width={movieImageWidth}
+          marginLength={MOVIE_IMAGE_MARGIN_LENGTH}
+        >
+          <Image
             alt={title}
-            height={imageHeight}
+            height={movieImageHeight}
             src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
           />
         </ImageContainer>
         <MovieDetailSection movieDetail={movieDetail} crew={crew} />
       </DetailSection>
+      <CastSection
+        cast={cast}
+        imageHeight={castImageHeight}
+        imageWidth={castImageWidth}
+        marginLeft={CAST_IMAGE_MARGIN_LENGTH}
+      />
     </Container>
   );
 }
