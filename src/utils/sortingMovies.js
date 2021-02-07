@@ -1,5 +1,3 @@
-import { parse } from "path";
-
 const POPULARITY = "Popularity";
 const TITLE = "Title";
 const RATING = "Rating";

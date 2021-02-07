@@ -7,27 +7,31 @@ import routes from "./routes";
 import Navbar from "components/Navbar";
 import { AppStateProvider } from "hooks/useAppState";
 
+const NAVBAR_HEIGHT = 64;
+
 const Container = styled.div`
+  width: 100vw;
+  height: 100vh;
+`;
+
+const PageContainer = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
+  height: calc(100% - ${NAVBAR_HEIGHT}px);
 `;
 
 function App(): ReactElement {
-  const Routes = routes.map((route, index) => (
-    <Route
-      key={index}
-      path={route.path}
-      exact={route.exact}
-      component={route.component}
-    />
-  ));
+  const Routes = routes.map((route, index) => <Route key={index} {...route} />);
 
   return (
     <AppStateProvider>
       <Router>
-        <Navbar />
         <Container>
-          <Switch>{Routes}</Switch>
+          <Navbar />
+          <PageContainer>
+            <Switch>{Routes}</Switch>
+          </PageContainer>
         </Container>
       </Router>
     </AppStateProvider>

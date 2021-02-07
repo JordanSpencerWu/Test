@@ -20,13 +20,10 @@ const MovieContainer = styled.div`
     margin-right: ${({ marginLength }) => marginLength}px;
   }
 
-  ${({ hover }) =>
-    hover &&
-    `
-    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14),
-                0 3px 14px 2px rgba(0,0,0,0.12),
-                0 5px 5px -3px rgba(0,0,0,0.20);
-    `}
+  &:hover {
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const TitleAndRatingContainer = styled.div`
@@ -110,7 +107,6 @@ function PopularMovie(props: PopularMovieProps): ReactElement {
 
   return (
     <MovieContainer
-      hover={hover}
       width={imageWidth}
       marginLength={marginLength}
       onMouseEnter={() => setHover(true)}
