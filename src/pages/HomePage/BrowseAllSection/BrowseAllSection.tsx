@@ -102,7 +102,7 @@ const chunkArray = (array, chunkSize) => {
 };
 
 const renderOptions = () =>
-  SORT_OPTIONS.map((option) => <option>{option}</option>);
+  SORT_OPTIONS.map((option, index) => <option key={index}>{option}</option>);
 
 function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   const { movies } = props;

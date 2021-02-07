@@ -24,7 +24,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   padding: ${CONTAINER_PADDING}px 75px;
 `;
 
@@ -66,7 +65,7 @@ function MovieDetailPage(props): ReactElement {
   const { movieDetailLookUp, movieCreditLookUp } = state;
 
   const movieDetail = movieDetailLookUp[movieId];
-  const { casts, crew } = movieCreditLookUp[movieId];
+  const movieCredit = movieCreditLookUp[movieId];
 
   const fetchMovieDetail = useCallback(async () => {
     const detail = await MovieService.getMovieDetail(movieId);
@@ -81,11 +80,11 @@ function MovieDetailPage(props): ReactElement {
   }, [dispatch, movieId]);
 
   useEffect(() => {
-    if (movieDetailLookUp === {} || movieDetailLookUp[movieId] === undefined) {
+    if (movieDetailLookUp === {} || movieDetail === undefined) {
       fetchMovieDetail();
     }
 
-    if (movieCreditLookUp === {} || movieCreditLookUp[movieId] === undefined) {
+    if (movieCreditLookUp === {} || movieCredit === undefined) {
       fetchMovieCredit();
     }
   }, [
@@ -93,14 +92,17 @@ function MovieDetailPage(props): ReactElement {
     fetchMovieCredit,
     movieDetailLookUp,
     movieCreditLookUp,
+    movieDetail,
+    movieCredit,
     movieId,
   ]);
 
-  if (movieDetail === undefined || casts === undefined || crew === undefined) {
+  if (movieDetail === undefined || movieCredit === undefined) {
     return <div>Fetching...</div>;
   }
 
   const { title, poster_path } = movieDetail;
+  const { crew } = movieCredit;
 
   const sideDetailWidth = (width - TOTAL_CONTAINER_PADDING) * 0.72;
   const imageWidth =
