@@ -26,6 +26,7 @@ const CastContainer = styled.div`
 
 const ImageContainer = styled.div`
   height: ${({ height }) => height}px;
+  border-radius: 4px;
 
   ${({ avatar }) =>
     avatar &&

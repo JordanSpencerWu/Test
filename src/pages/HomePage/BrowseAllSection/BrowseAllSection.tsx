@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 import Image from "components/Image";
 import { useWindowDimensions } from "hooks/useWindowDimensions";
-import { SORT_OPTIONS, sortMovies } from "utils/sortingMovies";
+import { SORT_OPTIONS, sortMovies } from "utils/sortMovies";
 import chunkArray from "utils/chunkArray";
 import path from "utils/path";
+import SelectInput from "components/SelectInput";
 
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_MOVIES_IN_A_ROW = 5;
@@ -27,7 +28,7 @@ const FlexContainer = styled.div`
   flex-direction: column;
 `;
 
-const SectionTitleAndSortContainer = styled.div`
+const TitleAndSortContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 16px 0;
@@ -74,12 +75,6 @@ const SortLabel = styled.label`
   line-height: 1.8;
 `;
 
-const SortSelect = styled.select`
-  width: 150px;
-  height: 32px;
-  padding-left: 8px;
-`;
-
 interface Movie {
   id: number;
   title: string;
@@ -92,9 +87,6 @@ interface Movie {
 interface BrowseAllSectionProps {
   movies: Array<Movie>;
 }
-
-const showOptions = () =>
-  SORT_OPTIONS.map((option, index) => <option key={index}>{option}</option>);
 
 function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   const { movies } = props;
@@ -134,18 +126,19 @@ function BrowseAllSection(props: BrowseAllSectionProps): ReactElement {
   return (
     <Container>
       <CenterContainer>
-        <SectionTitleAndSortContainer>
+        <TitleAndSortContainer>
           <div>
             <SectionSubText>Movies</SectionSubText>
             <SectionHeader>Browse All</SectionHeader>
           </div>
           <SortForm>
             <SortLabel>Sort by</SortLabel>
-            <SortSelect onChange={(e) => setSortBy(e.target.value)}>
-              {showOptions()}
-            </SortSelect>
+            <SelectInput
+              onChange={(e) => setSortBy(e.target.value)}
+              options={SORT_OPTIONS}
+            />
           </SortForm>
-        </SectionTitleAndSortContainer>
+        </TitleAndSortContainer>
         <FlexContainer>{showMovies(chunkMovies)}</FlexContainer>
       </CenterContainer>
     </Container>

@@ -28,6 +28,13 @@ export function setMovieGenres(movieGenres) {
   };
 }
 
+export function setMoviesByGenre(movies) {
+  return {
+    type: types.SET_MOVIES_BY_GENRE,
+    payload: { movies },
+  };
+}
+
 export function setPopularMovies(movies) {
   return {
     type: types.SET_POPULAR_MOVIES,

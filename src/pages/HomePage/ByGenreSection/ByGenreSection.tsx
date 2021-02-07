@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import GenreLink from "./GenreLink";
+import path from "utils/path";
 
 const GRAY_COLOR = "#bbbaba";
 const NUMBER_OF_GENRES_IN_A_ROW = 4;
@@ -59,6 +60,7 @@ function ByGenreSection(props: ByGenreSectionProps): ReactElement {
   const showGenres = (genres) =>
     genres.map((genre) => (
       <GenreLink
+        to={path.toDiscoverByGenre(genre.id)}
         key={genre.id}
         width={genreWidth}
         height={genreHeight}

@@ -4,6 +4,23 @@ import queryString from "query-string";
 const BASE_URL = "https://api.themoviedb.org/3";
 
 const MovieService = {
+  getMoviesByGenre: async (genreId) => {
+    const queryOptions = {
+      api_key: TMBD_API_TOKEN_V3,
+      language: "en",
+      sort_by: "popularity.desc",
+      page: 1,
+      with_genres: [genreId],
+    };
+    const url = `${BASE_URL}/discover/movie?${queryString.stringify(
+      queryOptions
+    )}`;
+
+    const response = await fetch(url);
+    const { results } = await response.json();
+
+    return results;
+  },
   getMovieCredit: async (movieId) => {
     const queryOptions = {
       api_key: TMBD_API_TOKEN_V3,

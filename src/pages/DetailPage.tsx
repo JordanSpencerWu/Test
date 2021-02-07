@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { useWindowDimensions } from "hooks/useWindowDimensions";
 import { useAppStateDispatch, useAppState } from "hooks/useAppState";
 
-import path from "utils/path";
 import { ReactComponent as BackArrowSvg } from "assets/back-arrow.svg";
 import {
   setMovieDetail,
@@ -13,8 +12,8 @@ import {
 } from "hooks/useAppState/actionCreators";
 import MovieService from "services/MovieService";
 import Image from "components/Image";
-import MovieDetailSection from "./MovieDetailPage/MovieDetailSection";
-import CastSection from "./MovieDetailPage/CastSection";
+import MovieDetailSection from "./DetailPage/MovieDetailSection";
+import CastSection from "./DetailPage/CastSection";
 
 const CONTAINER_PADDING = 32;
 const TOTAL_CONTAINER_PADDING = CONTAINER_PADDING * 2;
@@ -56,16 +55,16 @@ const ImageContainer = styled.div`
 
 const BackArrow = styled(BackArrowSvg)`
   color: %{GRAY_COLOR};
+  cursor: pointer;
   margin-right: 16px;
 `;
 
-function MovieDetailPage(props): ReactElement {
-  const state = useAppState();
+function DetailPage(): ReactElement {
+  const { movieDetailLookUp, movieCreditLookUp } = useAppState();
   const dispatch = useAppStateDispatch();
+  const history = useHistory();
   const { movieId } = useParams();
   const { width } = useWindowDimensions();
-
-  const { movieDetailLookUp, movieCreditLookUp } = state;
 
   const movieDetail = movieDetailLookUp[movieId];
   const movieCredit = movieCreditLookUp[movieId];
@@ -101,7 +100,7 @@ function MovieDetailPage(props): ReactElement {
   ]);
 
   if (movieDetail === undefined || movieCredit === undefined) {
-    return <div>Fetching...</div>;
+    return null;
   }
 
   const { title, poster_path } = movieDetail;
@@ -126,9 +125,7 @@ function MovieDetailPage(props): ReactElement {
   return (
     <Container>
       <BackSection>
-        <Link to={path.toHome()}>
-          <BackArrow />
-        </Link>
+        <BackArrow onClick={() => history.goBack()} />
         <MoviesHeader>
           <GraySubText>Movies:</GraySubText> Top 5
         </MoviesHeader>
@@ -156,4 +153,4 @@ function MovieDetailPage(props): ReactElement {
   );
 }
 
-export default MovieDetailPage;
+export default DetailPage;

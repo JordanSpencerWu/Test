@@ -96,9 +96,10 @@ interface PopularMovieProps {
 }
 
 function PopularMovie(props: PopularMovieProps): ReactElement {
+  const { movieGenres, marginLength, movie, imageHeight, imageWidth } = props;
+
   const [hover, setHover] = useState(false);
 
-  const { movieGenres, marginLength, movie, imageHeight, imageWidth } = props;
   const { id, title, vote_average, poster_path, genre_ids } = movie;
   const rating = vote_average.toFixed(1);
   const genreText = genre_ids

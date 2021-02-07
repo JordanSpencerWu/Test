@@ -1,6 +1,7 @@
 import HomePage from "pages/HomePage";
 import NotFoundPage from "pages/NotFoundPage";
-import MovieDetailPage from "pages/MovieDetailPage";
+import DetailPage from "pages/DetailPage";
+import DiscoverPage from "pages/DiscoverPage";
 
 const routes = [
   {
@@ -10,7 +11,11 @@ const routes = [
   },
   {
     path: "/detail/:movieId",
-    component: MovieDetailPage,
+    component: DetailPage,
+  },
+  {
+    path: "/discover",
+    component: DiscoverPage,
   },
   {
     path: "*",

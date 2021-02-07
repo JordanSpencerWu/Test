@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Link = styled.a`
+const LinkComponent = styled(Link)`
   display: flex;
   color: white;
   justify-content: center;
@@ -21,18 +22,19 @@ const Link = styled.a`
   min-width: 185px;
   max-width: 312px;
   margin-bottom: 48px;
+  text-decoration: none;
 
   &:not(:last-child) {
-    margin-right: ${({ marginLength }) => marginLength}px;
+    margin-right: ${({ marginlength }) => marginlength}px;
   }
 `;
 
 interface Genre {
-  id: number;
   name: string;
 }
 
 interface GenreProps {
+  to: string;
   width: number;
   height: number;
   marginLength: number;
@@ -40,12 +42,17 @@ interface GenreProps {
 }
 
 function GenreLink(props: GenreProps): ReactElement {
-  const { width, height, marginLength, genre } = props;
+  const { to, width, height, marginLength, genre } = props;
 
   return (
-    <Link width={width} height={height} marginLength={marginLength}>
+    <LinkComponent
+      to={to}
+      width={width}
+      height={height}
+      marginlength={marginLength}
+    >
       {genre.name}
-    </Link>
+    </LinkComponent>
   );
 }
 

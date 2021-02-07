@@ -21,10 +21,13 @@ const Container = styled.div`
 `;
 
 function HomePage(): ReactElement {
-  const state = useAppState();
+  const {
+    byGenres,
+    popularMovies,
+    top5PopularMovies,
+    movieGenres,
+  } = useAppState();
   const dispatch = useAppStateDispatch();
-
-  const { byGenres, popularMovies, top5PopularMovies, movieGenres } = state;
 
   const fetchMovies = useCallback(async () => {
     const popularMovies = await MovieService.getPopular();

@@ -1,11 +1,19 @@
 import types from "./actions";
 
 export const INITIAL_APP_STATE = {
+  // List of genre to show on HomePage
   byGenres: null,
+  // Lookup table for movie credit by movie id
   movieCreditLookUp: {},
+  // Look up table for movie detail by movie id
   movieDetailLookUp: {},
+  // List of all movie genre
   movieGenres: null,
+  // List of movies by genre
+  moviesByGenre: null,
+  // List of popular movies
   popularMovies: null,
+  // List of 5 popular movies
   top5PopularMovies: null,
 };
 
@@ -47,6 +55,8 @@ export function reducer(state, action) {
       };
     case types.SET_TOP_5_POPULAR_MOVIES:
       return { ...state, top5PopularMovies: payload.movies };
+    case types.SET_MOVIES_BY_GENRE:
+      return { ...state, moviesByGenre: payload.movies };
     case types.SET_POPULAR_MOVIES:
       return { ...state, popularMovies: payload.movies };
     case types.SET_MOVIE_GENRES:
