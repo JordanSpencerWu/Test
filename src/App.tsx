@@ -10,7 +10,6 @@ import { AppStateProvider } from "hooks/useAppState";
 const NAVBAR_HEIGHT = 64;
 
 const Container = styled.div`
-  width: 100vw;
   height: 100vh;
 `;
 

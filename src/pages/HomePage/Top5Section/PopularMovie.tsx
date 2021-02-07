@@ -46,7 +46,7 @@ const MoveTitleText = styled.h3`
   line-height: 1;
 `;
 
-const RatingText = styled.span`
+const RatingText = styled.p`
   margin: 8px 0;
   color: blue;
 `;
